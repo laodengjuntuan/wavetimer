@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container" class="container">
+        <div class="input-box">
+            <input id="current-time" class="cur-time-input" type="text" placeholder="xx分钟" v-model="setTime" v-on:keyup="isEnter($event)">
+            <button class="submit" v-on:click="loadTime">开始</button>
+        </div>
+        <p class="remain-time">{{ remainTime }}</p>
+        <div class="wave-box">
+            <div class="wave" v-bind:style="wave"></div>
+            <div class="wave" v-bind:style="wave"></div>
+        </div>
+    </div>
+    <script>
+        const timeObj = {
+            data() {
+                return {
+                    setTime: '',
+                    remainTime: '00:00',
+                    timer: null,
+                    timeSecond: 0,
+                    initialTime: 0,
+                    hasStyle: false
+                }
+            },
+            methods: {
+                loadTime() {
+                    this.hasStyle = false
+                    // 按理来说这个地方会引起回流，当加上再次加上动画时就可以重新开始动画
+                    void document.querySelector('.wave').offsetWidth 
+                    this.hasStyle = true
+
+                    this.setTime = document.querySelector('#current-time').value
+                    this.timeSecond = this.setTime * 60
+                    this.initialTime = this.setTime * 60
+                    clearTimeout(this.timer)
+                    this.timer = setInterval(() => {
+                        if (this.timeSecond > 0) {
+                            this.timeSecond--
+                            let minute = parseInt(this.timeSecond / 60)
+                            let second = this.timeSecond % 60
+                            this.remainTime = minute + ' : ' + second
+                        }
+                    }, 1000)
+                },
+                isEnter(event) {
+                    if (event.keyCode == 13) {
+                        this.loadTime()
+                    }
+                }
+            },
+            computed: {
+                wave() {
+                     return this.hasStyle ? {
+                        animation: 'rotate 10s linear infinite, rise ' + this.initialTime + 's linear both'
+                    } : ''
+                }
+            }
+        }
+        Vue.createApp(timeObj).mount("#container")
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+}
+.wave-box {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  padding: 5px;
+  border: 5px solid #76daff;
+  background-color: #76daff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/*-------------------------
+       wave-box
+--------------------------*/
+.wave {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background-color: rgba(255, 255, 255, .8);
+  border-radius: 44% 47% 45% 42%;
+  left: 50%;
+  bottom: 0px;
+  /* transform: translate(-50%, 0%); */
+  transform: translateX(-50%);
+  /* animation: rotate 10s linear infinite, rise 500s linear infinite; */
+}
+.wave:nth-child(2) {
+  /* transform: translate(-50%, -0%) rotate(135deg); */
+  transform: translateX(-50%) rotate(135deg);
+}
+
+@-webkit-keyframes rotate {
+  100% {
+    transform: translateX(-50%) rotate(720deg);
+  }
+}
+
+/* @keyframes rotate {
+  100% {
+    transform: translate(-50%, -220px) rotate(720deg);
+  }
+} */
+@keyframes rise {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 220px;
+  }
+}
+
+/*-------------------------
+         input
+--------------------------*/
+.input-box {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 0);
+  z-index: 1;
+}
+.cur-time-input {
+  width: 50px;
+  line-height: 30px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #000;
+  background-color: #eeeeee55;
+}
+.submit {
+  width: 50px;
+  line-height: 30px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background-color: #eeeeee55;
+  cursor: pointer;
+}
+.submit:active {
+  transform: scale(.95);
+}
+/*-------------------------
+       remain-time
+--------------------------*/
+.remain-time {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
